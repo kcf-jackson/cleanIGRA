@@ -1,0 +1,13 @@
+Package: cleanIGRA
+Type: Package
+Title: Converts NCDC's raw Integrated Global Radiosonde Archive (IGRA) data into R dataframe
+Version: 0.1
+Date: 2016-01-25
+Authors@R: person("Jackson", "Kwok", email = "kcf.jackson@gmail.com", role = c("aut", "cre"))
+Description: This package turns NCDC raw igra data into R dataframe based on the documentation given in "IGRA readme file" @ http://www1.ncdc.noaa.gov/pub/data/igra/readme.txt (Extracted on 25/01/2016)
+License: CCO
+LazyData: TRUE
+Imports: magrittr
+Suggests: knitr
+VignetteBuilder: knitr
+
