@@ -1,5 +1,5 @@
 ---
-title: "Illustration of the main functions"
+title: "Package 'cleanIGRA' Vignettes"
 author: "Jackson Kwok"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,27 +9,30 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 ###Key functionality 
-There is only one key function in this package: ```clean_IGRA```. See usage below. 
+There is only one key function in this package: ```clean_IGRA```. It parses the raw data and converts them into R dataframe. See usage below. 
 
-```{r, results = 'hide'}
+```{r, results = 'hide', cache = TRUE}
 library(cleanIGRA)
 filepath <- system.file("extdata//", "89002.y2d", package = "cleanIGRA")
 mydata <- clean_IGRA(filepath, type = 'file')  #key function
 ```
 ```{r}
-DT::datatable(head(mydata, 100), options = list(scrollX = TRUE))  #show results
+DT::datatable(head(mydata, 100), options = list(scrollX = TRUE,  pageLength = 5))  #show results
 ```
 
 ###Add-ons functionality
 The following are some 'add-ons' facilities:  
 
-1. ```fix_data_type``` converts some of the measurement variables from characters strings to numeric values and labels missing data as NA.
+1. ```fix_data_type``` converts some of the measurement variables from characters strings to numeric values and labels missing data (marked as -8888 and -9999) as NA.
 2. ```group_by_level``` splits the dataframe into a list of dataframes according to the pressure level.  
-3. ```aggregation_temperature_by_month``` aggregates daily measurement to monthly measurement. It uses averaging by default.  
+3. ```aggregate_temperature_by_month``` aggregates daily temperature measurement to monthly measurement. It uses simple averaging by default.  
 
 ```{r}
 library(magrittr)
 mydata_level_list <- mydata %>% fix_data_type() %>% group_by_level()
-mydata2 <- aggregate_temperature_by_month(mydata_level_list[[1]])  #convert the first level to monthly data
-DT::datatable(mydata2, options = list(scrollX = TRUE))  #show results
+mydata_first_level <- mydata_level_list[[1]]
+mydata_monthly <- aggregate_temperature_by_month(mydata_first_level)  #convert the 1st level to monthly data
+```
+```{r}
+DT::datatable(mydata_monthly, options = list(scrollX = TRUE, pageLength = 5))  #show results
 ```

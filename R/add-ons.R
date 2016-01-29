@@ -35,7 +35,7 @@ group_by_level <- function(df0){
 
 #' @export
 aggregate_temperature_by_month <- function(df0, FUN = mean){
-  monthlydata <- df0 %>% dplyr::group_by(station_id, year, month) %>%
+  monthlydata <- df0 %>% dplyr::group_by(station_id, year, month, pressure, pressure_flag) %>%
                    dplyr::summarise(temp = FUN(temp), counts = n())
   monthlydata
 }
