@@ -23,7 +23,7 @@ DT::datatable(head(mydata, 100), options = list(scrollX = TRUE,  pageLength = 5)
 ###Add-ons functionality
 The following are some 'add-ons' facilities:  
 
-1. ```fix_data_type``` converts some of the measurement variables from characters strings to numeric values and labels missing data (marked as -8888 and -9999) as NA.
+1. ```fix_data_type``` converts some of the measurement variables from characters strings to numeric values and labels missing data (marked as -8888 and -9999) as NA. It also corrects the scale of the data. See "IGRA readme file" for more details. 
 2. ```group_by_level``` splits the dataframe into a list of dataframes according to the pressure level.  
 3. ```aggregate_temperature_by_month``` aggregates daily temperature measurement to monthly measurement. It uses simple averaging by default.  
 
@@ -34,5 +34,6 @@ mydata_first_level <- mydata_level_list[[1]]
 mydata_monthly <- aggregate_temperature_by_month(mydata_first_level)  #convert the 1st level to monthly data
 ```
 ```{r}
+mydata_monthly$temp %<>% round(1)  #rounding for display purposes
 DT::datatable(mydata_monthly, options = list(scrollX = TRUE, pageLength = 5))  #show results
 ```
