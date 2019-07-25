@@ -3,8 +3,10 @@
 #' @param type character strings; either 'file' or 'folder'.
 #' @return a dataframe if type == 'file'; a list of dataframes if type == 'folder'.
 #' @examples
-#' data0 <- clean_IGRA('inst//extdata//89002.y2d')
-#' data1 <- clean_IGRA('inst//extdata', type = 'folder')
+#' \dontrun{
+#' data0 <- clean_IGRA('inst//extdata//v1//61902.y2d')
+#' data1 <- clean_IGRA('inst//extdata//v1', type = 'folder')
+#' }
 #' @export
 clean_IGRA <- function(path, type = 'file'){
   .Deprecated(
