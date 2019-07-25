@@ -1,0 +1,104 @@
+Format Description of IGRA 2 Monthly-Mean Files
+
+---------------------------------
+Notes:
+---------------------------------
+
+1. Monthly means are computed for the surface and mandatory levels at the 
+   nominal times of 00 and 12 UTC, considering data within two hours of each 
+   nominal time. They are therefore available for a subset of the stations 
+   and months in IGRA. This subset includes fixed observing stations on 
+   land and year/months in which a sufficient number of surface or
+   standard-pressure level observations are available within two hours 
+   of 0000 UTC or 1200 UTC.
+
+2. Once a month, usually on the sixth of the month, monthly means are
+   recalculated and means for the previous month are made available. For example,
+   monthly means for August 2014 became available on September 6, 2014.
+
+3. Monthly-mean files are available for two different time spans:
+
+   In subdirectory monthly-por, files contains monthly means the full period 
+     of record of 0000 and 1200 UTC observations.
+   In subdirectory monthly-upd, files only contain monthly means for the last
+     available month.
+
+4. File names are of the form VVVV_HHz-mly.txt in subdirectory monthly-por 
+   and of the form VVVV_HHz-mly-YYYYMM.txt in subdirectory monthly-upd,
+   where VVVV = variable, HH = nominal hour in UTC, and YYYYMM is the
+   year/month of the last available month. 
+
+   There are five possible values for VVVV: 
+
+   ghgt = Geopotential height
+   temp = Temperature
+   uwnd = Zonal wind component
+   vapr = Vapor pressure
+   vwnd = Meridional wind component
+
+   There are two possible values for HH: 
+
+   00 = 0000 UTC
+   12 = 1200 UTC
+
+5. Each record in a file contains the monthly mean for one
+   station/year/month/level. A mean is provided only if it can be calculated
+   from at least 10 observations. 
+
+---------------------------------
+Variable   Columns  Type
+---------------------------------
+ID            1- 11  Character
+YEAR         13- 16  Integer
+MONTH        18- 19  Integer
+LEVEL        21- 24  Integer
+VALUE        26- 31  Integer
+NUM          33- 34  Integer
+---------------------------------
+
+These variables have the following definitions:
+
+ID		is the station identification code. See "igra2-stations.txt"
+		for a complete list of stations and their names and locations.
+
+YEAR 		is the year of the record.
+
+MONTH 		is the month of the record.
+
+LEVEL 		is the pressure level. It has 22 possible values:
+
+		9999 = surface level
+		1000 = 1000 hPa
+		 925 = 925 hPa
+		 850 = 850 hPa
+		 700 = 700 hPa
+		 500 = 500 hPa
+		 400 = 400 hPa
+		 300 = 300 hPa
+		 250 = 250 hPa
+		 200 = 200 hPa
+		 150 = 150 hPa
+		 100 = 100 hPa
+		  70 = 70 hPa
+		  50 = 50 hPa
+		  30 = 30 hPa
+		  20 = 20 hPa
+		  10 = 10 hPa
+		   7 = 7 hPa
+		   5 = 5 hPa
+		   3 = 3 hPa
+		   2 = 2 hPa
+		   1 = 1 hPa
+
+VALUE 		is the monthly mean. Units are as follows:
+
+		Geopotential height (ghgt): whole meters 
+		Temperature (temp): degrees Celsius to tenths (e.g., 
+		  11 = 1.1°C)
+		Vapor pressure (vapr): Pascal
+		Zonal wind (uwnd): meters per second to tenths (e.g.,
+		  11 = 1.1 m/s)
+		Meridional wind (vwnd): meters per second to tenths (e.g.,
+		  11 = 1.1 m/s)
+
+NUM 	is the number of values used to calculate the mean.

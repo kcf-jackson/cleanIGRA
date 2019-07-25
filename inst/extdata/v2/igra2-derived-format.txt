@@ -1,0 +1,244 @@
+Format of the IGRA-Derived Sounding Parameters Files
+
+---------------------
+Notes:
+---------------------
+
+1. Sounding-derived parameters are available for a subset of the soundings 
+   in IGRA. This subset includes soundings at fixed observing stations on 
+   land that contain temperature observations and a surface pressure level.
+   The parameters include precipitable water between the surface and 500 hPa,
+   the refractive index, vertical gradients of several variables, and 
+   various measures of boundary-layer characteristics and stability.
+
+2. The derived parameters are updated once a day in the early morning Eastern
+   Time.
+
+3. Each "-drvd.txt.zip" file contains the sounding-derived parameters for one 
+   station. The name of the file corresponds to a station's IGRA 2 identifier
+   (e.g., "USM00072201-drvd.txt.zip"  contains the derived parameters for the 
+   station with the identifier USM00072201).
+
+4. Each file contains a series of multiline sounding records, each of which 
+   consists of a header record followed by one line of data for each pressure 
+   level in the sounding. Non-pressure levels are not included.
+
+5. All missing parameter values are coded as -99999. 
+
+---------------------
+Header Record Format:
+---------------------
+
+---------------------------------
+Variable   Columns  Type
+---------------------------------
+HEADREC       1-  1  Character
+ID            2- 12  Character
+YEAR         14- 17  Integer
+MONTH        19- 20  Integer
+DAY          22- 23  Integer
+HOUR         25- 26  Integer
+RELTIME      28- 31  Integer
+NUMLEV       32- 36  Integer
+PW           38- 43  Integer
+INVPRESS     44- 49  Integer
+INVHGT       50- 55  Integer
+INVTEMPDIF   56- 61  Integer
+MIXPRESS     62- 67  Integer
+MIXHGT       68- 73  Integer
+FRZPRESS     74- 79  Integer
+FRZHGT       80- 85  Integer
+LCLPRESS     86- 91  Integer
+LCLHGT       92- 97  Integer
+LFCPRESS     98-103  Integer
+LFCHGT      104-109  Integer
+LNBPRESS    110-115  Integer
+LNBHGT      116-121  Integer
+LI          122-127  Integer
+SI          128-133  Integer
+KI          134-139  Integer
+TTI         140-145  Integer
+CAPE        146-151  Integer
+CIN         152-157  Integer
+---------------------------------
+
+These variables have the following definitions:
+
+HEADREC		is the header record indicator (always set to "#").
+
+ID		is the station identification code. See "igra2-stations.txt"
+		for a complete list of stations and their names and locations.
+
+YEAR 		is the year of the sounding.
+
+MONTH 		is the month of the sounding.
+
+DAY 		is the day of the sounding.
+
+HOUR 		is the hour of the sounding (99 = missing).
+
+RELTIME 	is the release time of the sounding (format HHMM, missing=9999).
+
+NUMLEV 		is the number of levels in the sounding (i.e., the number of 
+		data records that follow).
+
+PW 		is the precipitable water (mm*100) between the surface and 500 hPa.
+
+INVPRESS 	is the pressure (in Pa or mb*100) at the level of the
+		warmest temperature in the sounding. Only provided if
+		the warmest temperature is above the surface.
+
+INVHGT 		is the height (in meters above the surface) of the warmest
+		temperature in the sounding. Only provided when the
+		warmest temperature is above the surface.
+
+INVTEMPDIF 	is the difference between the warmest temperature in the
+		sounding and the surface temperature (K * 10). Only provided if
+		the warmest temperature is above the surface.
+
+MIXPRESS 	is the pressure (in Pa or mb * 100) at the top of the
+		mixed layer as determined using the parcel method.
+
+MIXHGT 		is the height (in meters above the surface) of the top of the
+		mixed layer As determined using the parcel method.
+
+FRZPRESS 	is the pressure (in Pa or mb * 100) where the temperature
+		first reaches the freezing point when moving upward from
+		the surface. Determined by interpolating linearly with respect
+		to the logarithm of pressure between adjacent reported levels.
+		Not provided if the surface temperature is below freezing.
+
+FRZHGT 		is the height (in meters above the surface) where the temperature
+		first reaches the freezing point when moving upward from the
+		surface. Determined analogously to FRZPRESS. Not provided if the 
+		surface temperature is below freezing.
+
+LCLPRESS 	is the pressure (in Pa or mb * 100) of the lifting condensation
+		level.
+
+LCLHGT 		is the height (in meters above the surface) of the lifting
+		condensation level.
+
+LFCPRESS 	is the pressure (in Pa or mb * 100) of the level of free convection.
+
+LFCHGT 		is the height (in meters above the surface) of the level of free
+		convection.
+
+LNBPRESS 	is the pressure (in Pa or mb * 100) of the level of
+		neutral buoyancy (or equilibrium level).
+
+LNBHGT 		is the height (in meters above the surface) of the level of
+		neutral buoyancy (or equilibrium level).
+
+LI 		is the lifted index (in degrees C).
+
+SI 		is the Showalter index (in degrees C).
+
+KI 		is the K index (in degrees C).
+
+TTI 		is the total totals index (in degrees C).
+
+CAPE 		is the convective available potential energy (in J/kg).
+
+CIN 		is the convective inhibition (in J/kg).
+
+
+---------------------
+Data Record Format:
+---------------------
+
+In the data records following each header record, the first record always 
+represents the surface level. The variables in each data record include the 
+following:
+
+-------------------------------
+Variable        Columns Type  
+-------------------------------
+PRESS           1-  7   Integer
+REPGPH          9- 15   Integer
+CALCGPH        17- 23   Integer
+TEMP           25- 31   Integer
+TEMPGRAD       33- 39   Integer
+PTEMP          41- 47   Integer
+PTEMPGRAD      49- 55   Integer
+VTEMP          57- 63   Integer
+VPTEMP         65- 71   Integer
+VAPPRESS       73- 79   Integer
+SATVAP         81- 87   Integer
+REPRH          89- 95   Integer
+CALCRH         97-103   Integer
+RHGRAD        105-111   Integer
+UWND          113-119   Integer
+UWDGRAD       121-127   Integer
+VWND          129-135   Integer
+VWNDGRAD      137-143   Integer
+N             145-151   Integer
+-------------------------------
+
+These variables have the following definitions:
+
+PRESS 		is the reported pressure (Pa or mb * 100).
+
+REPGPH 		is the reported geopotential height (meters). This value is
+		often not available at significant levels.
+		
+CALCGPH 	is the calculated geopotential height (meters). The geopotential
+		height has been estimated by applying the hydrostatic balance to
+		the atmospheric layer between the next lower level with a 
+		reported geopotential height and the current level.
+		
+TEMP 		is the reported temperature (K * 10).
+
+TEMPGRAD 	is the temperature gradient between the current level and
+		the next higher level with a temperature [(K/km) * 10, positive
+		if temperature increases with height].
+		
+PTEMP 		is the potential temperature (K * 10).
+
+PTEMPGRAD 	is the potential temperature gradient between the current level
+		and the next higher level with a potential temperature 
+		[(K/km) * 10, positive if potential temperature increases 
+		with height].
+
+VTEMP 		is the virtual temperature (K * 10).
+
+VPTEMP 		is the virtual potential temperature (K * 10).
+
+VAPPRESS 	is the vapor pressure (mb * 1000) as computed from temperature,
+		pressure, and dewpoint depression at the same level.
+		
+SATVAP 		is the saturation vapor pressure (mb * 1000) as computed from 
+		pressure and temperature at the same level.
+				
+REPRH 		is the relative humidity (Percent * 10) as reported in the
+		original sounding.
+
+CALCRH		is the relative humidity (Percent * 10) as calculated from vapor
+		pressure, saturation vapor pressure, and pressure at the same 
+		level.
+		
+RHGRAD 		is the relative humidity gradient between the current level and
+		the next higher usable level [(%/km) * 10, positive if relative 
+		humidity increases with height].
+		
+UWND 		is the zonal wind component [(m/s) * 10] as computed from the
+		reported wind speed and direction.
+		
+UWDGRAD 	is the vertical gradient of the zonal wind between the current
+		level and the next higher level with a wind observation 
+		[(m/s per km) * 10, positive if zonal wind becomes more 
+		positive with height].
+		
+VWND 		is the meridional wind component [(m/s) * 10] as computed 
+		from the reported wind speed and direction.
+		
+VWNDGRAD 	is the vertical gradient of the meridional wind component 
+		between the current level and the next higher level with a wind
+		observation [(m/s per km) * 10, positive if the meridional 
+		wind becomes more positive with height].
+
+N 		is the refractive index (unitless).
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
