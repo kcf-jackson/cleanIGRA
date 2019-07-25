@@ -44,7 +44,6 @@ format_single_line <- function(line0){
 
 
 format_single_file <- function(file_lines){
-  library(magrittr)
   # formatted_lines <- lapply(file_lines, format_single_line)
 
   # A potentially slower implementation but it allows monitoring of progress
