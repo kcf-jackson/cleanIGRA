@@ -7,7 +7,11 @@
 #' data1 <- clean_IGRA('inst//extdata', type = 'folder')
 #' @export
 clean_IGRA <- function(path, type = 'file'){
-
+  .Deprecated(
+    "clean_IGRA_v*", package = "cleanIGRA",
+    msg = "The function 'clean_IGRA' is deprecated. A much faster solution is implemented in 'clean_IGRA_v1' and 'clean_IGRA_v2'.",
+    old = "clean_IGRA"
+  )
   #Check existence of file / folder.
   if (!file.exists(path)) {
     print("File / folder doesn't exist.")
