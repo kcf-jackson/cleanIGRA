@@ -1,4 +1,7 @@
 This is a R package to convert NCDC's raw Integrated Global Radiosonde Archive (IGRA) data into an R dataframe.
+
+- [IGRA homepage](https://www.ncdc.noaa.gov/data-access/weather-balloon/integrated-global-radiosonde-archive)
+- [IGRA Data repository](https://www1.ncdc.noaa.gov/pub/data/igra/)
  
 Here is the preview of the vignettes file. You may need to refresh the page a couple of times for it to show.
  
