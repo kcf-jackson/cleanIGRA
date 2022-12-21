@@ -37,7 +37,7 @@ clean_IGRA_v1 <- function(file, type) {
 #' not provided.
 #' @return a dataframe.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' path <- system.file("extdata//v2", package = "cleanIGRA")
 #' data0 <- clean_IGRA_v2(file.path(path, 'ASM00094703-data.txt'))
 #' data0 <- clean_IGRA_v2(file.path(path, 'AGM00060490-drvd.txt'))
@@ -65,18 +65,24 @@ clean_IGRA_v2 <- function(file, type) {
 parse_IGRA <- function(file, header_parser, data_parser) {
   # Parsing the file
   cat("Parsing the file...")
-  data0 <- data_parser(file)
 
   # Parsing and inserting the metadata separately
   lines <- readLines(file)
   header_flag <- sapply(lines, is_header)
   header_lines <- lines[header_flag]
+  data_lines <- lines[!header_flag]
   header_coverage <- table(cumsum(as.numeric(header_flag)))
 
   # Create temporary file for the header lines
   temp_file <- tempfile()
   write(header_lines, file = temp_file)
   metadata0 <- header_parser(temp_file)
+  file.remove(temp_file)
+
+  # Create temporary file for the data lines
+  temp_file <- tempfile()
+  write(data_lines, file = temp_file)
+  data0 <- data_parser(temp_file)
   file.remove(temp_file)
 
   metadata <- dplyr::bind_rows(purrr::map2(
